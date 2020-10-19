@@ -93,9 +93,9 @@ totem {
 
 {% for interface in corosync_interfaces %}
 	interface {
-		ringnumber: {{ ringnumber }}
-		bindnetaddr: {{ interface.bindnetaddr }}
+		ringnumber: {{ loop.index -1 }}
     {% if interface.mcastaddr is defined and corosync_transport != 'udpu' %}
+		bindnetaddr: {{ interface.bindnetaddr }}
 		mcastaddr: {{ interface.mcastaddr }}
     {% endif %}
     {% if interface.mcastport is defined %}
@@ -105,15 +105,10 @@ totem {
 	ttl: {{ interface.ttl }}
     {% endif %}
 	}
-{% set ringnumber = ringnumber + 1 %}
 {% endfor %}
 }
 
-{# nodelist section will be configured only when UDPU (unicast) transport is used #}
-{% if corosync_transport == 'udpu' %}
 {% if corosync_node_list is defined %}
-{% set nodeid = 1 %}
-{% set hostid = 0 %}
 nodelist {
 {% for node in corosync_node_list %}
 	node {
@@ -121,13 +116,10 @@ nodelist {
 		ring{{ ringnumber }}_addr: {{ node }}
 {% set ringnumber = ringnumber + 1 %}
     {% endfor %}
-		nodeid: {{ nodeid }}
+		nodeid: {{ loop.index }}
 	}
-{% set nodeid = nodeid + 1 %}
-{% set hostid = hostid + 1 %}
 {% endfor %}
 }
-{% endif %}
 {% endif %}
 
 {# expected_votes will be defined only when UDPU (unicast) transport is used #}
@@ -137,7 +129,6 @@ quorum {
         expected_votes: {{ corosync_expected_votes }}
 {% endif %}
 }
-
 logging {
         timestamp: {{ corosync_timestamp | default ('off') }}
         fileline: {{ corosync_fileline | default('off') }}

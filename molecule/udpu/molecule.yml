@@ -1,0 +1,41 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+platforms:
+- name: instance1-corosync-${MOLECULE_SCENARIO_NAME}
+  box: ${MOL_BOX:-debian/buster64}
+  interfaces:
+  - network_name: private_network
+    ip: 192.168.168.2
+  groups:
+  - node
+- name: instance2-corosync-${MOLECULE_SCENARIO_NAME}
+  box: ${MOL_BOX:-debian/buster64}
+  interfaces:
+  - network_name: private_network
+    ip: 192.168.168.3
+  groups:
+  - node
+- name: instance3-corosync-${MOLECULE_SCENARIO_NAME}
+  box: ${MOL_BOX:-debian/buster64}
+  interfaces:
+  - network_name: private_network
+    ip: 192.168.168.4
+  groups:
+  - node
+provisioner:
+  name: ansible
+  config_options:
+    ssh_connection:
+      pipelining: true
+verifier:
+  name: testinfra

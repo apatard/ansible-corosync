@@ -3,10 +3,10 @@
 - name: Installing Corosync package
   package:
     name=corosync
-    state=latest
-  when: ansible_distribution_release != 'jessie' and
-        corosync_debian_backports is defined and
-        corosync_debian_backports
+    state=present
+  when:
+  - ansible_distribution_release != 'jessie' or corosync_debian_backports is not defined or not (corosync_debian_backports | bool)
+
 
 - name: Enabling Corosync service
   service:

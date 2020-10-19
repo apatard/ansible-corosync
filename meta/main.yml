@@ -22,7 +22,7 @@ galaxy_info:
     - 23
   - name: Debian
     versions:
-    - jessie
+    - buster
   - name: Ubuntu
     versions:
     - trusty
@@ -31,8 +31,8 @@ galaxy_info:
     - wily
 
   galaxy_tags:
-    - cloud
-    - clustering
-    - system
+  - cloud
+  - clustering
+  - system
 
 dependencies: []

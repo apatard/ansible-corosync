@@ -4,6 +4,10 @@
   template:
     src=etc/corosync/corosync.conf.j2
     dest=/etc/corosync/corosync.conf
+    validate="corosync -t -c %s"
+    owner=root
+    group=root
+    mode=0644
   notify: restart corosync
 
 - name: Making sure that Corosync service is started

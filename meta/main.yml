@@ -1,9 +1,8 @@
 ---
 galaxy_info:
   author: Gaetan Trellu (goldyfruit)
-  description: Deploy a Corosync cluster, support unicast and multicast with mutilple rings
+  description: Deploy a Corosync cluster
   company: InCloudUs
-
   issue_tracker_url: https://github.com/uoi-io/ansible-corosync/issues
   license: Apache
 

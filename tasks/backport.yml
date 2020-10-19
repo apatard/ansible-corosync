@@ -7,7 +7,7 @@
     update_cache=yes
 
 - name: Installing Corosync package (Debian Jessie only)
-  apt:
+  apt:  # noqa 403
     name=corosync
     state=latest
     update_cache=yes

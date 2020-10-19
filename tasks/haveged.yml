@@ -3,7 +3,7 @@
 - name: Installing haveged package
   package:
     name=haveged
-    state=latest
+    state=present
 
 - name: Enabling and starting haveged service
   service:

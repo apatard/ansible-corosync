@@ -15,4 +15,5 @@
     name=corosync
     state=started
 
-- meta: flush_handlers
+- name: Force now corosync restart
+  meta: flush_handlers
